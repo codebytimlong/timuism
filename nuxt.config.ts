@@ -1,14 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   modules: [
     '@nuxtjs/google-fonts',
     '@nuxt/content'
   ],
   css: ['~/assets/css/main.css'],
-  postcss: {
-    plugins: {
-      '@tailwindcss/postcss': {}
-    }
+  vite: {
+    plugins: [tailwindcss()]
   },
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
@@ -19,11 +19,13 @@ export default defineNuxtConfig({
     }
   },
   content: {
-    highlight: {
-      theme: {
-        default: "solarized-dark",
+    build: {
+      markdown: {
+        highlight: { theme: 'solarized-dark' }
       }
-    }
+    },
+    // Node 22.5+ ships node:sqlite, so no better-sqlite3 dependency.
+    experimental: { sqliteConnector: 'native' }
   },
   googleFonts: {
     families: {
@@ -32,5 +34,6 @@ export default defineNuxtConfig({
       'Khand': [400, 500, 600]
     }
   },
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+  compatibilityDate: '2026-10-16'
 })
