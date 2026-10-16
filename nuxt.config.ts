@@ -23,9 +23,7 @@ export default defineNuxtConfig({
       markdown: {
         highlight: { theme: 'solarized-dark' }
       }
-    },
-    // Node 22.5+ ships node:sqlite, so no better-sqlite3 dependency.
-    experimental: { sqliteConnector: 'native' }
+    }
   },
   googleFonts: {
     families: {
