@@ -4,11 +4,10 @@
 const route = useRoute()
 const theme = useState<'light' | 'dark'>('home-theme', () => 'light')
 
+// The inline script in <head> (below) picks the theme before first paint;
+// sync the state to whatever it chose.
 onMounted(() => {
-    let saved: string | null = null
-    try { saved = localStorage.getItem('engineer-site-theme') } catch (e) { }
-    if (saved === 'light' || saved === 'dark') theme.value = saved
-    else if (window.matchMedia('(prefers-color-scheme: dark)').matches) theme.value = 'dark'
+    if (document.documentElement.dataset.theme === 'dark') theme.value = 'dark'
 })
 
 function toggleTheme() {
@@ -21,7 +20,14 @@ function toggleTheme() {
 // areas outside the layout: iOS overscroll, the notch and toolbar strips.
 useHead({
     htmlAttrs: { class: 'home', 'data-theme': theme },
-    meta: [{ name: 'theme-color', content: () => theme.value === 'dark' ? '#000000' : '#ffffff' }]
+    meta: [{ name: 'theme-color', content: () => theme.value === 'dark' ? '#000000' : '#ffffff' }],
+    // Runs before first paint so dark-mode visitors don't see a white
+    // flash: saved choice first, then the OS preference.
+    script: [{
+        key: 'theme-init',
+        tagPosition: 'head',
+        innerHTML: `(function(){var t;try{t=localStorage.getItem('engineer-site-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=t==='dark'?'#000000':'#ffffff'})()`
+    }]
 })
 </script>
 
