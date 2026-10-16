@@ -4,6 +4,11 @@
 const route = useRoute()
 const theme = useState<'light' | 'dark'>('home-theme', () => 'light')
 
+// Side padding, kept clear of the notch in landscape (viewport-fit=cover).
+// Applied to the header and content separately so the header can span the
+// full width.
+const gutter = 'pl-[max(2rem,env(safe-area-inset-left))] pr-[max(2rem,env(safe-area-inset-right))] md:pl-[max(7.8125rem,env(safe-area-inset-left))]'
+
 // The inline script in <head> (below) picks the theme before first paint;
 // sync the state to whatever it chose.
 onMounted(() => {
@@ -32,9 +37,12 @@ useHead({
 </script>
 
 <template>
-    <div class="relative min-h-dvh text-(--home-text) font-khand leading-[normal] antialiased px-8 pb-48 md:pl-31.25 md:pr-8 md:pt-12.5">
-        <div class="sticky top-0 z-10 flex items-center w-full pt-8 pb-4 bg-linear-to-b from-(--home-bg) from-25% to-transparent"
-            :class="route.path !== '/' ? 'justify-between' : 'justify-end'">
+    <div class="relative min-h-dvh text-(--home-text) font-khand leading-[normal] antialiased pb-48 md:pt-12.5">
+        <!-- Full-width with a solid background: iOS Safari tints the status
+             bar from a sticky header's background-color (not gradients), so
+             the fade lives in the ::after below the bar. -->
+        <div class="sticky top-0 z-10 flex items-center pt-[calc(2rem+env(safe-area-inset-top))] pb-2 bg-(--home-bg) after:absolute after:inset-x-0 after:top-full after:h-6 after:bg-linear-to-b after:from-(--home-bg) after:to-transparent after:pointer-events-none"
+            :class="[gutter, route.path !== '/' ? 'justify-between' : 'justify-end']">
             <NuxtLink v-if="route.path !== '/'" to="/" aria-label="Home" class="inline-flex p-1 text-(--home-accent)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                     stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7" aria-hidden="true">
@@ -61,8 +69,10 @@ useHead({
             </button>
         </div>
 
-        <div class="max-w-[640px]">
-            <slot />
+        <div :class="gutter">
+            <div class="max-w-[640px]">
+                <slot />
+            </div>
         </div>
     </div>
 </template>
