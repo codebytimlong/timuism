@@ -1,0 +1,38 @@
+/* Light/dark-switchable tokens for the homepage, from the "home-page"
+   Figma file (light + dark frames). Plain CSS custom properties so the
+   palette can be reassigned per theme; referenced in the template via
+   Tailwind arbitrary values, e.g. text-[var(--home-accent)]. Scoped under
+   .home so nothing here touches the rest of the site. */
+
+.home {
+  --home-bg: #ffffff;
+  --home-text: #000000;
+  --home-accent: #41a32d;
+  --home-highlight: #ae8611;
+}
+
+.home[data-theme="dark"] {
+  --home-bg: #000000;
+  --home-text: #ffffff;
+  --home-accent: #2aff00;
+  --home-highlight: #ffe500;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  .home a {
+    text-decoration-line: underline;
+    text-decoration-thickness: from-font;
+    text-underline-position: from-font;
+    transition: color 120ms ease;
+  }
+  .home a:hover,
+  .home a:focus-visible {
+    color: var(--home-highlight);
+  }
+  .home :focus-visible {
+    outline: 2px solid var(--home-accent);
+    outline-offset: 3px;
+  }
+}

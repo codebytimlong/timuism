@@ -1,8 +1,16 @@
+<script setup lang="ts">
+definePageMeta({ layout: 'home' })
+</script>
+
 <template>
-  <article class="post-content w-full">
+  <article class="post-content">
     <ContentDoc v-slot="{ doc }">
-      <h2>{{ doc.title }}</h2>
-      <div class="post-md mt-4 w-full">
+      <header class="flex flex-col gap-2.5 mb-10">
+        <h1 class="m-0 text-5xl/[normal] font-normal">{{ doc.title }}</h1>
+        <span class="block w-[90px] h-px bg-[var(--home-accent)]" aria-hidden="true"></span>
+        <span class="font-barlow-condensed text-xl/[normal] opacity-70">{{ doc.publishDate }}</span>
+      </header>
+      <div class="post-md">
         <ContentRenderer :value="doc" />
       </div>
     </ContentDoc>
@@ -10,37 +18,40 @@
 </template>
 
 <style>
-.markup-p {
-  @apply text-lg;
+@reference "../assets/css/main.css";
+
+/* Long-form text uses Barlow (the regular-width sibling of the Figma
+   design's Barlow Condensed); headings stay in Khand. */
+.post-content .post-md {
+  @apply font-sans text-lg leading-relaxed;
 }
 
-.post-content .post-md > div > *+*:not(pre),
-.post-content .post-md > div > p+p {
-  @apply pt-6;
+.post-content .post-md > div > * + *:not(pre) {
+  @apply mt-6;
 }
 
-.post-content p {
-  @apply max-w-screen-md mx-auto leading-relaxed;
+.post-content .post-md h2 {
+  @apply font-khand text-4xl/[normal] font-semibold mt-12;
 }
 
-.post-content h2 {
-  @apply text-secondary text-3xl font-sans font-light mt-10;
+.post-content .post-md h3 {
+  @apply font-khand text-2xl/[normal] font-semibold mt-10;
 }
 
-.post-content h3 {
-  @apply text-xl font-semibold mt-8;
+.post-content .post-md a {
+  color: var(--home-accent);
 }
 
 .post-content img {
-  @apply rounded-md mx-auto my-4 border-2 border-gray-500/25;
+  @apply max-w-full mx-auto my-4;
 }
 
 .post-content code {
-  @apply bg-black text-secondary text-sm p-0.5 my-1 rounded overflow-x-auto;
+  @apply bg-black text-[#2aff00] text-sm px-1 py-0.5 rounded overflow-x-auto;
 }
 
 .post-content table {
-  @apply border border-gray-500/75 my-4;
+  @apply border border-[var(--home-accent)] my-4;
 }
 
 .post-content th {
@@ -48,16 +59,20 @@
 }
 
 .post-content table td {
-  @apply p-2 border border-gray-500;
+  @apply p-2 border border-[var(--home-accent)];
 }
 
 pre.shiki {
-  @apply bg-black block w-full px-3 my-6 text-xs rounded-md overflow-x-auto md:text-sm;
+  @apply bg-black block w-full px-3 py-2 my-6 text-xs rounded-md overflow-x-auto md:text-sm;
+}
+
+pre.shiki code {
+  @apply p-0 bg-transparent text-inherit;
 }
 
 .post-content ul,
 .post-content ol {
-  @apply list-inside marker:text-gray-300;
+  @apply pl-6 marker:text-[var(--home-accent)];
 }
 
 .post-content ul {
@@ -68,7 +83,9 @@ pre.shiki {
   @apply list-decimal;
 }
 
-.post-content a {
-  @apply outline-none text-secondary focus:underline hover:underline focus:text-secondary duration-200;
+/* Nuxt Content wraps headings in self-links; keep them looking like headings. */
+.post-content .post-md :is(h2, h3) a {
+  color: inherit;
+  text-decoration: none;
 }
 </style>
