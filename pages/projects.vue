@@ -1,35 +1,27 @@
 <script setup lang="ts">
-const projects = [
-  {
-    name: 'Torch',
-    description: 'A Web App for capturing, logging and sharing strength training workouts',
-    url: 'https://torchfitness.app'
-  },
-  {
-    name: 'Torc',
-    description: 'Capture workout data from text using a simple syntax',
-    url: 'https://github.com/timuism/torc',
-  },
-  {
-    name: 'Vida',
-    description: 'A Todo app based around walking you through personal sprints',
-    url: 'https://github.com/timuism/vida'
-  }
+useHead({ title: 'Projects | Timothy Long' })
+
+const groups = [
+  { title: 'client work', items: clientWork },
+  { title: 'personal', items: personalProjects }
 ]
 </script>
+
 <template>
-  <article>
-    <h2 class="text-lg text-gray-500 font-sans mt-12 ml-4">Projects</h2>
-    <ul class="mt-12 space-y-12 md:pr-24">
-      <li v-for="{ url, name, description } in projects" :key="url">
-        <a :href="url"
-          class="group block border-2 border-transparent outline-none focus:border-secondary focus:bg-gray-500/25 hover:border-secondary rounded p-4 duration-200">
-          <h3 class="font-display font-semibold text-xl text-primary group-hover:text-secondary duration-200">
-            {{ name }}
-          </h3>
-          <p class="mt-2 text-lg font-sans font-medium italic">{{ description }}</p>
-        </a>
-      </li>
-    </ul>
-  </article>
+  <div>
+    <PageHeader title="projects" />
+    <div class="flex flex-col gap-20">
+      <HomeSection v-for="g in groups" :key="g.title" :title="g.title">
+        <ul class="list-none m-0 p-0 flex flex-col gap-6">
+          <li v-for="p in g.items" :key="p.name" class="flex flex-col gap-1">
+            <a v-if="p.href" :href="p.href" target="_blank" rel="noopener"
+              class="text-2xl/[normal] font-medium text-[var(--home-accent)]">{{ p.name }}</a>
+            <span v-else
+              class="text-2xl/[normal] font-medium text-[var(--home-accent)] underline decoration-from-font [text-underline-position:from-font]">{{ p.name }}</span>
+            <p v-if="p.blurb" class="m-0 text-xl/[normal]">{{ p.blurb }}</p>
+          </li>
+        </ul>
+      </HomeSection>
+    </div>
+  </div>
 </template>

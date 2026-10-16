@@ -1,88 +1,58 @@
-<template>
-	<article>
-    <section>
-      <div class="space-y-6">
-        <p class="text-base font-light tracking-wide mt-4 font-serif">
-          I'm a software engineer with  ~{{(new Date().getFullYear()) - 2017}} years of experience in building web sites and applications. My focus is mostly in front-end development but I am able to design user interfaces and I have also worked in the back-end.  
-        </p>
-        <p>
-          I am currently looking for new opportunities (both full-time, part-time or freelance) so feel free to reach out if you think I'd be a good fit for your team or project. 
-        </p>
+<script setup lang="ts">
+useHead({
+  title: 'Timothy Long | Software Engineer',
+  meta: [
+    { name: 'description', content: 'Timothy Long — software engineer designing and developing web sites & applications.' }
+  ]
+})
 
-        <p>
-          Say hello by <InlineLink href="mailto:tim@timuism.com" >sending me an email</InlineLink> if you'd like to work together or just chat!
+const years = new Date().getFullYear() - 2017
+
+const socials = [
+  { name: 'GitHub', href: 'https://github.com/codebytimlong' },
+  { name: 'LinkedIn', href: 'https://linkedin.com/in/timothyjosephlong' },
+  { name: 'Work History', href: '/work-history' }
+]
+</script>
+
+<template>
+  <div>
+    <header class="flex flex-col gap-5 max-w-[402px]">
+      <div class="flex flex-col gap-2.5">
+        <h1 class="m-0 text-5xl/[normal] font-normal">timothy</h1>
+        <span class="block w-[90px] h-px bg-[var(--home-accent)]" aria-hidden="true"></span>
+        <p class="m-0 text-2xl/[normal]">
+          I am a software engineer with more than<br class="hidden sm:inline">
+          {{ years }} years of experience designing and developing web sites &amp; applications
         </p>
       </div>
+      <nav class="flex flex-wrap items-center gap-x-[33px] gap-y-2 font-barlow-condensed text-2xl/[normal] text-[var(--home-accent)]">
+        <NuxtLink v-for="s in socials" :key="s.name" :to="s.href" :target="s.href.startsWith('/') ? undefined : '_blank'">{{ s.name }}</NuxtLink>
+      </nav>
+    </header>
 
-      
-      <div class="mt-8 pl-6 border-l-2 border-secondary">
-        <h3 class="text-secondary text-xs font-sans font-medium inline-block leading-none">Recent Work</h3>
-        <ul class="mt-2 space-y-6">
-          <li>
-            <div>
-              <h4 class="font-sans font-semibold">Into Vanishing Ice</h4>
-              <p class="text-sm my-2">A 4-part scrollytelling website about Arctic research done by JHU APL. Built with Vue.</p>
-              <InlineLink href="https://secwww.jhuapl.edu/johns-hopkins-apl-arctic-climate-research/" target>View Scrollytelling Site</InlineLink>
-            </div>
-          </li>
-          <li>
-            <div>
-              <h4 class="font-sans font-semibold">DART One Year: From Impact to Innovation</h4>
-              <p class="text-sm my-2">Another developer and I tag-teamed this interactive website and had a lot of fun with gsap timelines with Nuxt.</p>
-              <InlineLink href="https://secwww.jhuapl.edu/dart-one-year-anniversary/" target>View DART One Year site</InlineLink>
-            </div>
-          </li>
-          <li>
-            <div>
-              <h4 class="font-sans font-semibold">Annual Reports for JHU APL</h4>
-              <p class="text-sm my-2">Developed the interface and content management for the Applied Physics Laboratory's Annual Report.</p>
-              <p class="space-x-2">
-                <span class="font-sans font-semibold">Explore Annual Reports:</span>
-                <InlineLink href="https://secwww.jhuapl.edu/2023-Annual-Report/" target>2023</InlineLink>
-                <InlineLink href="https://secwww.jhuapl.edu/2022-Annual-Report/" target>2022</InlineLink>
-                <InlineLink href="https://secwww.jhuapl.edu/2021-Annual-Report/" target>2021</InlineLink>
-              </p>
-            </div>
-          </li>
-          <li>
-            <div>
-              <h4 class="font-sans font-semibold">Diversity, Equity and Inclusion Annual Reports for JHU APL</h4>
-              <p class="text-sm my-2">Lead development & content management for the DEI report for the Applied Physics Laboratory.</p>
-              <p class="space-x-2">
-                <span class="font-sans font-semibold">Explore DEI Annual Reports:</span>
-                <InlineLink href="https://www.jhuapl.edu/Diversity-Equity-Inclusion-Annual-Report-2023/" target>2023</InlineLink>
-                <InlineLink href="https://www.jhuapl.edu/Diversity-Equity-Inclusion-Annual-Report-2022/" target>2022</InlineLink>
-                <InlineLink href="https://www.jhuapl.edu/Diversity-Inclusion-Annual-Report-2021/" target>2021</InlineLink>
-              </p>
-            </div>
-          </li>
-          <li>
-            <div>
-              <h4 class="font-sans font-semibold">JHU APL Website</h4>
-              <p class="text-sm my-2">Served as a technical consultant for APL's primary external website.</p>
-              <InlineLink href="https://www.jhuapl.edu" target>View APL Website</InlineLink>
-            </div>
+    <div class="flex flex-col gap-20 mt-20 md:mt-[113px]">
+      <HomeSection title="recent work">
+        <ul class="list-none m-0 p-0 flex flex-col gap-5 text-2xl/[normal] font-medium text-[var(--home-accent)]">
+          <li v-for="w in clientWork" :key="w.name">
+            <a v-if="w.href" :href="w.href" target="_blank" rel="noopener">{{ w.name }}</a>
+            <span v-else class="underline decoration-from-font [text-underline-position:from-font]">{{ w.name }}</span>
           </li>
         </ul>
-      </div>
+        <NuxtLink to="/projects" class="inline-block mt-6 font-barlow-condensed text-xl/[normal] text-[var(--home-text)]">all projects &rarr;</NuxtLink>
+      </HomeSection>
 
-      <div class="mt-8 border-secondary">
-        <h3 class="mt-8 text-secondary text-xs font-sans font-medium">Let's Connect</h3>
-        <table class="mt-2">
-          <tr>
-            <td class="text-gray-300 font-medium">GitHub</td>
-            <td class="pl-16"><InlineLink href="https://github.com/timuism">timuism</InlineLink></td>
-          </tr>
-          <tr>
-            <td class="text-gray-300 font-medium">Email</td>
-            <td class="pl-16"><InlineLink href="mailto:tim@timuism.com">tim@timuism.com</InlineLink></td>
-          </tr>
-        </table>
-
-        <p class="mt-4">Check out my <InlineLink href="/links">Links</InlineLink> page for more of my socials and links.</p>
-      </div>
-    </section>
-  </article>
-
-
+      <HomeSection title="recent writing">
+        <ContentList :query="{ path: 'posts', sort: [{ num: -1 }], limit: 3 }" v-slot="{ list }">
+          <ul class="list-none m-0 p-0 flex flex-col gap-5">
+            <li v-for="post in list" :key="post._path" class="flex flex-col">
+              <NuxtLink :to="post._path" class="text-2xl/[normal] font-medium text-[var(--home-accent)]">{{ post.title }}</NuxtLink>
+              <span class="font-barlow-condensed text-lg/[normal] opacity-70">{{ post.publishDate }}</span>
+            </li>
+          </ul>
+        </ContentList>
+        <NuxtLink to="/blog" class="inline-block mt-6 font-barlow-condensed text-xl/[normal] text-[var(--home-text)]">all posts &rarr;</NuxtLink>
+      </HomeSection>
+    </div>
+  </div>
 </template>

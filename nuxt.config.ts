@@ -1,10 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
-    '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
     '@nuxt/content'
   ],
+  css: ['~/assets/css/main.css'],
+  postcss: {
+    plugins: {
+      '@tailwindcss/postcss': {}
+    }
+  },
   app: {
     pageTransition: { name: 'page', mode: 'out-in' }
   },
@@ -18,7 +23,8 @@ export default defineNuxtConfig({
   googleFonts: {
     families: {
       'Barlow': true,
-      'Courier Prime': true
+      'Barlow Condensed': [400],
+      'Khand': [400, 500, 600]
     }
   },
   devtools: { enabled: true }

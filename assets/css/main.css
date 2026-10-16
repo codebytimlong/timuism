@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import "./home-theme.css";
+
+@theme {
+  /* Reset Tailwind's default color palette — this site intentionally only
+     exposes the colors below (mirrors the old tailwind.config.ts). */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-white: #efe5ee;
+  --color-black: #020202;
+  --color-gray-100: #cfcfcf;
+  --color-gray-300: #a0a0a0;
+  --color-gray-500: #515151;
+  --color-gray-900: #171717;
+  --color-secondary: #dc9300;
+
+  --font-sans: "Barlow", Helvetica, Arial, sans-serif;
+  --font-serif: Courier, "Courier New", Georgia;
+
+  --font-khand: "Khand", "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-barlow-condensed: "Barlow Condensed", "Arial Narrow", sans-serif;
+}
