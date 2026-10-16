@@ -1,11 +1,9 @@
 <template>
   <article class="post-content">
     <ContentDoc v-slot="{ doc }">
-      <header class="flex flex-col gap-2.5 mb-10">
-        <h1 class="m-0 text-5xl/[normal] font-normal">{{ doc.title }}</h1>
-        <span class="block w-[90px] h-px bg-[var(--home-accent)]" aria-hidden="true"></span>
+      <PageHeader :title="doc.title">
         <span class="font-barlow-condensed text-xl/[normal] opacity-70">{{ doc.publishDate }}</span>
-      </header>
+      </PageHeader>
       <div class="post-md">
         <ContentRenderer :value="doc" />
       </div>

@@ -10,7 +10,8 @@ const years = new Date().getFullYear() - 2017
 
 const socials = [
   { name: 'GitHub', href: 'https://github.com/codebytimlong' },
-  { name: 'LinkedIn', href: 'https://linkedin.com/in/timothyjosephlong' }
+  { name: 'LinkedIn', href: 'https://linkedin.com/in/timothyjosephlong' },
+  { name: 'Work History', href: '/work-history' }
 ]
 </script>
 
@@ -25,8 +26,8 @@ const socials = [
           {{ years }} years of experience designing and developing web sites &amp; applications
         </p>
       </div>
-      <nav class="flex items-center gap-[33px] font-barlow-condensed text-2xl/[normal] text-[var(--home-accent)]">
-        <a v-for="s in socials" :key="s.name" :href="s.href" target="_blank" rel="noopener">{{ s.name }}</a>
+      <nav class="flex flex-wrap items-center gap-x-[33px] gap-y-2 font-barlow-condensed text-2xl/[normal] text-[var(--home-accent)]">
+        <NuxtLink v-for="s in socials" :key="s.name" :to="s.href" :target="s.href.startsWith('/') ? undefined : '_blank'">{{ s.name }}</NuxtLink>
       </nav>
     </header>
 

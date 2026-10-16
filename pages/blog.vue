@@ -3,7 +3,8 @@ useHead({ title: 'Writing | Timothy Long' })
 </script>
 
 <template>
-  <HomeSection title="writing" as="h1">
+  <div>
+    <PageHeader title="writing" />
     <ContentList :query="{ path: 'posts', sort: [{ num: -1 }] }" v-slot="{ list }">
       <ul class="list-none m-0 p-0 flex flex-col gap-5">
         <li v-for="post in list" :key="post._path" class="flex flex-col">
@@ -12,5 +13,5 @@ useHead({ title: 'Writing | Timothy Long' })
         </li>
       </ul>
     </ContentList>
-  </HomeSection>
+  </div>
 </template>
