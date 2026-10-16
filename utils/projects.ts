@@ -25,7 +25,7 @@ export const clientWork: Project[] = [
   },
   {
     name: 'A Star Explored',
-    href: '',
+    href: 'https://secwww.jhuapl.edu/Parker-Solar-Probe-Closest-Flyby/',
     blurb: ''
   }
 ]
