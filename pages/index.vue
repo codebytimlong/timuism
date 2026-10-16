@@ -8,6 +8,10 @@ useHead({
 
 const years = new Date().getFullYear() - 2017
 
+const { data: posts } = await useAsyncData('recent-posts', () =>
+  queryCollection('posts').order('num', 'DESC').limit(3).all()
+)
+
 const socials = [
   { name: 'GitHub', href: 'https://github.com/codebytimlong' },
   { name: 'LinkedIn', href: 'https://linkedin.com/in/timothyjosephlong' },
@@ -43,14 +47,12 @@ const socials = [
       </HomeSection>
 
       <HomeSection title="recent writing">
-        <ContentList :query="{ path: 'posts', sort: [{ num: -1 }], limit: 3 }" v-slot="{ list }">
-          <ul class="list-none m-0 p-0 flex flex-col gap-5">
-            <li v-for="post in list" :key="post._path" class="flex flex-col">
-              <NuxtLink :to="post._path" class="text-2xl/[normal] font-medium text-[var(--home-accent)]">{{ post.title }}</NuxtLink>
-              <span class="font-barlow-condensed text-lg/[normal] opacity-70">{{ post.publishDate }}</span>
-            </li>
-          </ul>
-        </ContentList>
+        <ul class="list-none m-0 p-0 flex flex-col gap-5">
+          <li v-for="post in posts" :key="post.path" class="flex flex-col">
+            <NuxtLink :to="post.path" class="text-2xl/[normal] font-medium text-[var(--home-accent)]">{{ post.title }}</NuxtLink>
+            <span class="font-barlow-condensed text-lg/[normal] opacity-70">{{ post.publishDate }}</span>
+          </li>
+        </ul>
         <NuxtLink to="/blog" class="inline-block mt-6 font-barlow-condensed text-xl/[normal] text-[var(--home-text)]">all posts &rarr;</NuxtLink>
       </HomeSection>
     </div>

@@ -1,13 +1,25 @@
+<script setup lang="ts">
+const route = useRoute()
+
+const { data: doc } = await useAsyncData(route.path, () =>
+  queryCollection('posts').path(route.path).first()
+)
+
+if (!doc.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Page not found', fatal: true })
+}
+
+useSeoMeta({ title: () => `${doc.value?.title} | Timothy Long`, description: () => doc.value?.description })
+</script>
+
 <template>
-  <article class="post-content">
-    <ContentDoc v-slot="{ doc }">
-      <PageHeader :title="doc.title">
-        <span class="font-barlow-condensed text-xl/[normal] opacity-70">{{ doc.publishDate }}</span>
-      </PageHeader>
-      <div class="post-md">
-        <ContentRenderer :value="doc" />
-      </div>
-    </ContentDoc>
+  <article v-if="doc" class="post-content">
+    <PageHeader :title="doc.title">
+      <span class="font-barlow-condensed text-xl/[normal] opacity-70">{{ doc.publishDate }}</span>
+    </PageHeader>
+    <div class="post-md">
+      <ContentRenderer :value="doc" />
+    </div>
   </article>
 </template>
 
