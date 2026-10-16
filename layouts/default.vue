@@ -37,11 +37,13 @@ useHead({
 </script>
 
 <template>
-    <div class="relative min-h-dvh text-(--home-text) font-khand leading-[normal] antialiased pb-48 md:pt-12.5">
+    <div class="relative min-h-dvh text-(--home-text) font-khand leading-[normal] antialiased pb-48">
         <!-- Full-width with a solid background: iOS Safari tints the status
              bar from a sticky header's background-color (not gradients), so
-             the fade lives in the ::after below the bar. -->
-        <div class="sticky top-0 z-10 flex items-center pt-[calc(2rem+env(safe-area-inset-top))] pb-2 bg-(--home-bg) after:absolute after:inset-x-0 after:top-full after:h-6 after:bg-linear-to-b after:from-(--home-bg) after:to-transparent after:pointer-events-none"
+             the fade lives in the ::after below the bar. From md up there's
+             no status bar to tint, so the bar itself fades (solid only at
+             the very top) and the ::after continues it more gradually. -->
+        <div class="sticky top-0 z-10 flex items-center pt-[calc(2rem+env(safe-area-inset-top))] pb-2 bg-(--home-bg) after:absolute after:inset-x-0 after:top-full after:h-6 after:bg-linear-to-b after:from-(--home-bg) after:to-transparent after:pointer-events-none md:bg-transparent md:bg-linear-to-b md:from-(--home-bg) md:to-(--home-bg)/60 md:after:h-12 md:after:from-(--home-bg)/60"
             :class="[gutter, route.path !== '/' ? 'justify-between' : 'justify-end']">
             <NuxtLink v-if="route.path !== '/'" to="/" aria-label="Home" class="inline-flex p-1 text-(--home-accent)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
@@ -69,7 +71,9 @@ useHead({
             </button>
         </div>
 
-        <div :class="gutter">
+        <!-- md:pt-10 clears the longer desktop fade so page titles aren't
+             faded before you scroll. -->
+        <div class="md:pt-10" :class="gutter">
             <div class="max-w-[640px]">
                 <slot />
             </div>
