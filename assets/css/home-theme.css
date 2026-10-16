@@ -27,12 +27,15 @@
     text-underline-position: from-font;
     transition: color 120ms ease;
   }
-  .home a:hover,
-  .home a:focus-visible {
-    color: var(--home-highlight);
-  }
   .home :focus-visible {
     outline: 2px solid var(--home-accent);
     outline-offset: 3px;
   }
+}
+
+/* Outside @layer base so it wins over color utilities and page styles
+   that set a link's resting color. */
+.home a:hover,
+.home a:focus-visible {
+  color: var(--home-highlight);
 }

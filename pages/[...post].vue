@@ -32,8 +32,11 @@
   @apply font-khand text-2xl/[normal] font-semibold mt-10;
 }
 
-.post-content .post-md a {
-  color: var(--home-accent);
+/* Layered so the global link hover color in home-theme.css wins. */
+@layer components {
+  .post-content .post-md a {
+    color: var(--home-accent);
+  }
 }
 
 .post-content img {
