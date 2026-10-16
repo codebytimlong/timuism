@@ -1,6 +1,4 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'home' })
-
 useHead({
   title: 'Timothy Long | Software Engineer',
   meta: [

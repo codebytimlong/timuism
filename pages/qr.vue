@@ -12,8 +12,5 @@ import QrCode from '~/assets/images/qr-code.png'
         </figure>
       </section>
     </article>
-    <div class="w-full text-center md:text-left mt-6 md:ml-16">
-      <Link href="/links">View Links</Link>
-    </div>
   </div>
 </template>

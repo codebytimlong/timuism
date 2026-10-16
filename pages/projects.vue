@@ -1,6 +1,4 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'home' })
-
 useHead({ title: 'Projects | Timothy Long' })
 
 const groups = [

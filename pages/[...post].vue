@@ -1,7 +1,3 @@
-<script setup lang="ts">
-definePageMeta({ layout: 'home' })
-</script>
-
 <template>
   <article class="post-content">
     <ContentDoc v-slot="{ doc }">

@@ -24,7 +24,6 @@ export default defineNuxtConfig({
     families: {
       'Barlow': true,
       'Barlow Condensed': [400],
-      'Courier Prime': true,
       'Khand': [400, 500, 600]
     }
   },
