@@ -2,7 +2,7 @@
    Figma file (light + dark frames). Plain CSS custom properties so the
    palette can be reassigned per theme; referenced in the template via
    Tailwind arbitrary values, e.g. text-[var(--home-accent)]. Scoped under
-   .home so nothing here touches the rest of the site. */
+   .home, which the layout sets on <html>. */
 
 .home {
   --home-bg: #ffffff;
@@ -18,6 +18,10 @@
   --home-highlight: #ffe500;
 
   color-scheme: dark;
+}
+
+html.home {
+  background: var(--home-bg);
 }
 
 @layer base {

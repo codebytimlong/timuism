@@ -16,11 +16,17 @@ function toggleTheme() {
     try { localStorage.setItem('engineer-site-theme', next) } catch (e) { }
     theme.value = next
 }
+
+// Theme lives on <html> so the page background (and color-scheme) covers
+// areas outside the layout: iOS overscroll, the notch and toolbar strips.
+useHead({
+    htmlAttrs: { class: 'home', 'data-theme': theme },
+    meta: [{ name: 'theme-color', content: () => theme.value === 'dark' ? '#000000' : '#ffffff' }]
+})
 </script>
 
 <template>
-    <div class="home relative min-h-dvh bg-(--home-bg) text-(--home-text) font-khand leading-[normal] antialiased px-8 pb-48 md:pl-31.25 md:pr-8 md:pt-12.5"
-        :data-theme="theme">
+    <div class="relative min-h-dvh text-(--home-text) font-khand leading-[normal] antialiased px-8 pb-48 md:pl-31.25 md:pr-8 md:pt-12.5">
         <div class="sticky top-0 z-10 flex items-center w-full pt-8 pb-4 bg-linear-to-b from-(--home-bg) from-25% to-transparent"
             :class="route.path !== '/' ? 'justify-between' : 'justify-end'">
             <NuxtLink v-if="route.path !== '/'" to="/" aria-label="Home" class="inline-flex p-1 text-(--home-accent)">
