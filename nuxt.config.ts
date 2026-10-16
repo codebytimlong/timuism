@@ -11,7 +11,12 @@ export default defineNuxtConfig({
     }
   },
   app: {
-    pageTransition: { name: 'page', mode: 'out-in' }
+    pageTransition: { name: 'page', mode: 'out-in' },
+    // viewport-fit=cover lets the sticky header reach under the iOS status
+    // bar; the layout pads for the safe areas itself.
+    head: {
+      viewport: 'width=device-width, initial-scale=1, viewport-fit=cover'
+    }
   },
   content: {
     highlight: {
