@@ -19,11 +19,20 @@ function toggleTheme() {
 </script>
 
 <template>
-    <div class="home relative min-h-screen bg-[var(--home-bg)] text-[var(--home-text)] font-khand leading-[normal] antialiased px-8  pb-48 md:pl-[125px] md:pr-8 md:pt-[50px]"
+    <div class="home relative min-h-screen bg-(--home-bg) text-(--home-text) font-khand leading-[normal] antialiased px-8 pb-48 md:pl-31.25 md:pr-8 md:pt-12.5"
         :data-theme="theme">
-        <div class="sticky pt-10 w-full top-0 right-0 flex justify-end px-2">
+        <div class="sticky top-0 z-10 flex items-center w-full pt-8 pb-4 bg-linear-to-b from-(--home-bg) from-25% to-transparent"
+            :class="route.path !== '/' ? 'justify-between' : 'justify-end'">
+            <NuxtLink v-if="route.path !== '/'" to="/" aria-label="Home" class="inline-flex p-1 text-(--home-accent)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7" aria-hidden="true">
+                    <path d="M3.5 10.5 12 3.5l8.5 7" />
+                    <path d="M5.5 9v11h4.5v-6h4v6h4.5V9" />
+                </svg>
+            </NuxtLink>
+
             <button type="button"
-                class="flex text-[var(--home-accent)] hover:text-[var(--home-highlight)] cursor-pointer bg-transparent border-0 p-1"
+                class="flex text-(--home-accent) hover:text-(--home-highlight) cursor-pointer bg-transparent border-0 p-1"
                 :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`" @click="toggleTheme">
                 <!-- sun: shown in dark mode -->
                 <svg v-if="theme === 'dark'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -39,15 +48,6 @@ function toggleTheme() {
                 </svg>
             </button>
         </div>
-
-        <NuxtLink v-if="route.path !== '/'" to="/" aria-label="Home"
-            class="inline-flex p-1 -ml-1 mb-10 md:mb-12 text-[var(--home-accent)]">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7" aria-hidden="true">
-                <path d="M3.5 10.5 12 3.5l8.5 7" />
-                <path d="M5.5 9v11h4.5v-6h4v6h4.5V9" />
-            </svg>
-        </NuxtLink>
 
         <div class="max-w-[640px]">
             <slot />
