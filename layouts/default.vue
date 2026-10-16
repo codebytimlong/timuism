@@ -19,7 +19,7 @@ function toggleTheme() {
 </script>
 
 <template>
-    <div class="home relative min-h-screen bg-(--home-bg) text-(--home-text) font-khand leading-[normal] antialiased px-8 pb-48 md:pl-31.25 md:pr-8 md:pt-12.5"
+    <div class="home relative min-h-dvh bg-(--home-bg) text-(--home-text) font-khand leading-[normal] antialiased px-8 pb-48 md:pl-31.25 md:pr-8 md:pt-12.5"
         :data-theme="theme">
         <div class="sticky top-0 z-10 flex items-center w-full pt-8 pb-4 bg-linear-to-b from-(--home-bg) from-25% to-transparent"
             :class="route.path !== '/' ? 'justify-between' : 'justify-end'">
